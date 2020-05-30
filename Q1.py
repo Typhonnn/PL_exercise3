@@ -20,7 +20,7 @@ def dividers_to_list(num):
 
 
 def sum_of_dividers(numbers):
-    return list(map(dividers_to_list, filter(find_dividers, numbers)))
+    return Counter(sorted(i for num in filter(find_dividers, numbers) for i in range(1, int(num/2) + 1) if num % i == 0))
 
 
 if __name__ == '__main__':
