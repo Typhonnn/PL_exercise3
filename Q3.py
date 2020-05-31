@@ -21,9 +21,19 @@ class AverageIO:
 
 
 def logged(func):
-    def run(*args):
-        ret = func(*args)
-        print("You called {}({}) it return {}".format(func.__name__, *args, ret))
+    logged.messages = []
+
+    def run(*args, **kwargs):
+        ret = func(*args, **kwargs)
+        param = ''
+        for a in args:
+            param += "{},".format(a)
+        for k in kwargs.items():
+            param += "{},".format(k)
+        param = "({})".format(param)
+        logged.messages.append("You called {}{} it returned {}".format(func.__name__, param, ret))
+        for msg in logged.messages:
+            print(msg)
         return ret
 
     return run
@@ -32,10 +42,15 @@ def logged(func):
 @AverageIO
 @logged
 def sum_numbers(num):
-    total = num + 2
-    return total
+    return num + 2
+
+
+@logged
+def sum_numbers1(num, doc, con):
+    return num + doc['c']
 
 
 if __name__ == '__main__':
     for i in range(1, 5):
         print(sum_numbers(i))
+    sum_numbers1(3, {'c': 4}, con=True)
