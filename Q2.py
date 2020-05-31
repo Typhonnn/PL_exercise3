@@ -1,4 +1,4 @@
-import inspect
+from inspect import signature
 
 
 def group_types(arr):
@@ -8,7 +8,7 @@ def group_types(arr):
 
 
 def one_param_func(arr):
-    return list(filter(lambda x: len(inspect.signature(x).parameters) <= 1, arr))
+    return list(filter(lambda x: len(signature(x).parameters) <= 1, arr))
 
 
 if __name__ == '__main__':
