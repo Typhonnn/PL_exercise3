@@ -1,14 +1,21 @@
 class AverageIO:
     def __init__(self, func):
         self.func = func
+        self.counter = 0
         self.averages = ()
 
     def __call__(self, *args):
         ret = self.func(*args)
-        if len(self.averages) == 0:
+        if self.counter == 0:
             self.averages = (*args, ret)
+            self.counter += 1
         else:
-            self.averages = ((self.averages[0] + args[0]) / 2, (self.averages[1] + ret) / 2)
+            param_avg = self.averages[0]*self.counter
+            res_avg = self.averages[1]*self.counter
+            self.counter += 1
+            param_avg = (param_avg + args[0]) / self.counter
+            res_avg = (res_avg + ret) / self.counter
+            self.averages = (param_avg, res_avg)
         print("Average Results: {}".format(self.averages))
         return ret
 
