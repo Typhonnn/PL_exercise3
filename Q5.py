@@ -1,16 +1,21 @@
 class Twitter:
     def __init__(self, name):
         self.name = name
-        self.who = None
+        self.followers = []
+        self.follows = []
         self.msg = ""
 
     def follow(self, who):
-        self.who = who
-        return self.who
+        self.follows.append(who)
+        who.followers.append(self)
+        return self
 
     def tweet(self, msg):
-        self.msg = msg
-        print(msg)
+        if len(self.followers) == 0:
+            print("No Followers...")
+        for follower in self.followers:
+            follower.msg = msg
+            print("{} Read the tweet: {}".format(follower.name, follower.msg))
 
 
 if __name__ == '__main__':

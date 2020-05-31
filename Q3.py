@@ -10,8 +10,8 @@ class AverageIO:
             self.averages = (*args, ret)
             self.counter += 1
         else:
-            param_avg = self.averages[0]*self.counter
-            res_avg = self.averages[1]*self.counter
+            param_avg = self.averages[0] * self.counter
+            res_avg = self.averages[1] * self.counter
             self.counter += 1
             param_avg = (param_avg + args[0]) / self.counter
             res_avg = (res_avg + ret) / self.counter
