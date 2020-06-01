@@ -25,13 +25,16 @@ def logged(func):
 
     def run(*args, **kwargs):
         ret = func(*args, **kwargs)
-        param = ''
-        for a in args:
-            param += "{},".format(a)
-        for k in kwargs.items():
-            param += "{},".format(k)
-        param = "({})".format(param)
-        logged.messages.append("You called {}{} it returned {}".format(func.__name__, param, ret))
+        args_param = ''
+        kwargs_param = ''
+        if args:
+            args_param = str(args)
+            if kwargs:
+                args_param = args_param[:-1] + ', '
+                kwargs_param = str(kwargs) + ')'
+        elif kwargs:
+            kwargs_param = '({})'.format(kwargs)
+        logged.messages.append("You called {}{}{} it returned {}".format(func.__name__, args_param, kwargs_param, ret))
         for msg in logged.messages:
             print(msg)
         return ret
@@ -46,11 +49,17 @@ def sum_numbers(num):
 
 
 @logged
-def sum_numbers1(num, doc, con):
+def sum_numbers1(num, doc, con, my):
     return num + doc['c']
+
+
+@logged
+def nothing(con, my):
+    return con
 
 
 if __name__ == '__main__':
     for i in range(1, 5):
         print(sum_numbers(i))
-    sum_numbers1(3, {'c': 4}, con=True)
+    sum_numbers1(3, {'c': 4}, con=True, my='False')
+    nothing(con=True, my='False')

@@ -11,11 +11,10 @@ class Twitter:
         return self
 
     def tweet(self, msg):
-        if len(self.followers) == 0:
-            print("No Followers...")
+        self.msg = msg
+        print(msg)
         for follower in self.followers:
-            follower.msg = msg
-            print("{} Read the tweet: {}".format(follower.name, follower.msg))
+            print("{} Read the tweet".format(follower.name))
 
 
 if __name__ == '__main__':
