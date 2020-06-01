@@ -1,3 +1,6 @@
+"""Tal Balelty - 312270291"""
+
+
 def last_three(func):
     """prints the last 3 functions that were called."""
     last_three.func_list = []
@@ -10,6 +13,7 @@ def last_three(func):
             for index in range(end - 3, end):
                 print(last_three.func_list[index].__name__)
         return ret
+
     return run
 
 

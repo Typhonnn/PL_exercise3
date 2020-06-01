@@ -2,11 +2,9 @@ class Twitter:
     def __init__(self, name):
         self.name = name
         self.followers = []
-        self.follows = []
         self.msg = ""
 
     def follow(self, who):
-        self.follows.append(who)
         who.followers.append(self)
         return self
 
