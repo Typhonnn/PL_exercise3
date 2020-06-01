@@ -1,19 +1,19 @@
-class LastThree:
-    def __init__(self, func):
-        self.func_list = []
-        self.current_func = func
+def last_three(func):
+    """prints the last 3 functions that were called."""
+    last_three.func_list = []
 
-    def __call__(self, *args):
-        ret = self.current_func(*args)
-        self.func_list.append(self.current_func)
-        end = len(self.func_list)
+    def run(*args):
+        ret = func(*args)
+        last_three.func_list.append(func)
+        end = len(last_three.func_list)
         if end >= 3:
             for index in range(end - 3, end):
-                print(self.func_list[index].__name__)
+                print(last_three.func_list[index].__name__)
         return ret
+    return run
 
 
-@LastThree
+@last_three
 def sum_numbers(num):
     total = num + 2
     return total

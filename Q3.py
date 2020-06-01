@@ -1,4 +1,9 @@
+"""Tal Balelty - 312270291"""
+
+
 class AverageIO:
+    """Calculates the average of all function's inputs and outputs so far."""
+
     def __init__(self, func):
         self.func = func
         self.counter = 0
@@ -21,6 +26,7 @@ class AverageIO:
 
 
 def logged(func):
+    """Keeps a log of all functions and their parameters that were called."""
     logged.messages = []
 
     def run(*args, **kwargs):
@@ -32,6 +38,8 @@ def logged(func):
             if kwargs:
                 args_param = args_param[:-1] + ', '
                 kwargs_param = str(kwargs) + ')'
+            else:
+                args_param = args_param[:-2] + ')'
         elif kwargs:
             kwargs_param = '({})'.format(kwargs)
         logged.messages.append("You called {}{}{} it returned {}".format(func.__name__, args_param, kwargs_param, ret))
@@ -42,24 +50,27 @@ def logged(func):
     return run
 
 
+"""Testing functions:"""
+
+
 @AverageIO
 @logged
-def sum_numbers(num):
+def do_nothing_avg(num):
     return num + 2
 
 
 @logged
-def sum_numbers1(num, doc, con, my):
+def do_nothing1(num, doc, con, my):
     return num + doc['c']
 
 
 @logged
-def nothing(con, my):
+def do_nothing(con, my):
     return con
 
 
 if __name__ == '__main__':
     for i in range(1, 5):
-        print(sum_numbers(i))
-    sum_numbers1(3, {'c': 4}, con=True, my='False')
-    nothing(con=True, my='False')
+        print(do_nothing_avg(i))
+    do_nothing1(3, {'c': 4}, con=True, my='False')
+    do_nothing(con=True, my='False')

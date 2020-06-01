@@ -1,14 +1,18 @@
+"""Tal Balelty - 312270291"""
 from inspect import signature
 
 
-def group_types(arr):
-    return {'i': list(filter(lambda x: isinstance(x, int), arr)), 'c': list(filter(lambda y: isinstance(y, str), arr)),
-            'f': list(filter(lambda z: isinstance(z, float), arr)), 'o': list(
-            filter(lambda w: not isinstance(w, int) and not isinstance(w, str) and not isinstance(w, float), arr))}
+def group_types(args):
+    """Groups the list of arguments in a dictionary by type."""
+    return {'i': list(filter(lambda x: isinstance(x, int), args)),
+            'c': list(filter(lambda y: isinstance(y, str), args)),
+            'f': list(filter(lambda z: isinstance(z, float), args)), 'o': list(
+            filter(lambda w: not isinstance(w, int) and not isinstance(w, str) and not isinstance(w, float), args))}
 
 
-def one_param_func(arr):
-    return list(filter(lambda x: len(signature(x).parameters) <= 1, arr))
+def one_param_func(funcs):
+    """return a list of functions that take 1 or less arguments"""
+    return list(filter(lambda x: len(signature(x).parameters) <= 1, funcs))
 
 
 if __name__ == '__main__':

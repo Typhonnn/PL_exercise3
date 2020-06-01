@@ -1,8 +1,10 @@
+"""Tal Balelty - 312270291"""
 from collections import Counter
 from sympy import isprime
 
 
 def find_dividers(num):
+    """return True if the sum of dividers is bigger or equal to the number."""
     arr = []
     for i in range(1, int(num / 2 + 1)):
         modulo = num % i
@@ -12,6 +14,7 @@ def find_dividers(num):
 
 
 def count_dividers(numbers):
+    """return dictionary of dividers and the times they appear."""
     return dict(Counter(
         sorted(i for num in filter(find_dividers, numbers) for i in range(1, int(num / 2) + 1) if num % i == 0)))
 
