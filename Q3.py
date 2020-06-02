@@ -67,8 +67,10 @@ def do_nothing(con, my):
 
 
 if __name__ == '__main__':
+    """average testing"""
     for i in range(1, 4):
         print(do_nothing_avg(i))
+    """log testing"""
     do_nothing1(3, {'c': 4}, con=True, my='False')
     do_nothing(con=True, my='False')
     do_nothing2()
