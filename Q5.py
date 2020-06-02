@@ -3,6 +3,7 @@ class Twitter:
         self.name = name
         self.followers = []
         self.msg = ""
+        self.received_tweet = ""
 
     def follow(self, who):
         who.followers.append(self)
@@ -12,7 +13,8 @@ class Twitter:
         self.msg = msg
         print(msg)
         for follower in self.followers:
-            print("{} Read the tweet".format(follower.name))
+            follower.received_tweet = msg
+            print("{} Tweet received: {}".format(follower.name, follower.received_tweet))
 
 
 if __name__ == '__main__':
