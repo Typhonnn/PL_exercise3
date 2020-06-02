@@ -1,28 +1,20 @@
 """Tal Balelty - 312270291"""
 
 
-class AverageIO:
+def average_io(func):
     """Calculates the average of all function's inputs and outputs so far."""
+    average_io.inp = []
+    average_io.out = []
 
-    def __init__(self, func):
-        self.func = func
-        self.counter = 0
-        self.averages = ()
-
-    def __call__(self, *args):
-        ret = self.func(*args)
-        if self.counter == 0:
-            self.averages = (*args, ret)
-            self.counter += 1
-        else:
-            param_avg = self.averages[0] * self.counter
-            res_avg = self.averages[1] * self.counter
-            self.counter += 1
-            param_avg = (param_avg + args[0]) / self.counter
-            res_avg = (res_avg + ret) / self.counter
-            self.averages = (param_avg, res_avg)
-        print("Average Results: {}".format(self.averages))
+    def run(*args):
+        average_io.inp.append(args[0])
+        ret = func(*args)
+        average_io.out.append(ret)
+        t = (sum(average_io.inp) / len(average_io.inp), sum(average_io.out) / len(average_io.out))
+        print('Average Results: ' + str(t))
         return ret
+
+    return run
 
 
 def logged(func):
@@ -37,14 +29,14 @@ def logged(func):
             args_param = str(args)
             if kwargs:
                 args_param = args_param[:-1] + ', '
-                kwargs_param = str(kwargs) + ')'
+                kwargs_param = (', '.join(['{}={!r}'.format(k, v) for k, v in kwargs.items()])) + ')'
             else:
                 args_param = args_param[:-2] + ')'
         elif kwargs:
-            kwargs_param = '({})'.format(kwargs)
+            kwargs_param = '({})'.format((', '.join(['{}={!r}'.format(k, v) for k, v in kwargs.items()])))
         logged.messages.append("You called {}{}{} it returned {}".format(func.__name__, args_param, kwargs_param, ret))
-        for msg in logged.messages:
-            print(msg)
+        for log in logged.messages:
+            print(log)
         return ret
 
     return run
@@ -53,10 +45,15 @@ def logged(func):
 """Testing functions:"""
 
 
-@AverageIO
+@average_io
 @logged
 def do_nothing_avg(num):
     return num + 2
+
+
+@logged
+def do_nothing2():
+    return 9
 
 
 @logged
@@ -70,7 +67,8 @@ def do_nothing(con, my):
 
 
 if __name__ == '__main__':
-    for i in range(1, 5):
+    for i in range(1, 4):
         print(do_nothing_avg(i))
     do_nothing1(3, {'c': 4}, con=True, my='False')
     do_nothing(con=True, my='False')
+    do_nothing2()
